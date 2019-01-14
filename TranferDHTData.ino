@@ -1,7 +1,7 @@
 #include "DHTSensor.h"
 
 constexpr uint8_t dhtPin = 2;
-constexpr uint8_t dhtType = DHT11;
+constexpr uint8_t dhtType = DHT22;
 DHTSensor dht{dhtPin, dhtType};
 
 void setup() {
