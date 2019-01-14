@@ -1,2 +1,2 @@
-# TransferDHTData
-Transfer My Home's DHT Data By Arduino.
+# SendDHTSerialData
+Send My Home's DHT Serial Data From Arduino.
