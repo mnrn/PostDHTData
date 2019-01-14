@@ -35,6 +35,28 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Delay between measurements.
+  constexpr int32_t expectDelay = 10000; // 10seconds
+  delay(static_cast<unsigned long>(max(expectDelay, dht.getMinDelay())));
 
+  // Get temperature event and print its value.
+  const auto tempEvent = dht.getTemperatureEvent();
+  if (isnan(tempEvent.temperature)) {
+    Serial.println(F("Error reading temperature!"));
+  }
+  else {
+    Serial.print(F("Temperature: "));
+    Serial.print(tempEvent.temperature);
+    Serial.println(F("°C"));
+  }
+  // Get humidity event and print its value.
+  const auto humidEvent = dht.getHumidityEvent();
+  if (isnan(humidEvent.relative_humidity)) {
+    Serial.println(F("Error reading humidity!"));
+  }
+  else {
+    Serial.print(F("Humidity: "));
+    Serial.print(humidEvent.relative_humidity);
+    Serial.println(F("%"));
+  }
 }
