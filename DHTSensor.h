@@ -14,6 +14,8 @@ class DHTSensor {
 
     void begin() {
       _dht.begin();
+      const auto sensor = getTemperatureSensor();
+      setMinDelay(sensor.min_delay / 1000);
     }
     
     sensor_t getTemperatureSensor() {
