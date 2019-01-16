@@ -53,6 +53,6 @@ void loop() {
     root["humidity"] = humidityEvent.relative_humidity;
   }
 
-  // Send Json.
+  // Send Json data.
   root.prettyPrintTo(Serial);
 }
