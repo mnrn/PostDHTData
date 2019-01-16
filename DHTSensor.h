@@ -15,7 +15,7 @@ class DHTSensor {
     void begin() {
       _dht.begin();
       const auto sensor = getTemperatureSensor();
-      setMinDelay(sensor.min_delay / 1000);
+      _minDelay = sensor.min_delay / 1000;
     }
     
     sensor_t getTemperatureSensor() {
@@ -43,10 +43,8 @@ class DHTSensor {
     int32_t getMinDelay() const {
       return _minDelay;
     }
-    void setMinDelay(int32_t minDelay) {
-      _minDelay = minDelay;
-    }
-  private:
+    
+  private:    
     DHT_Unified _dht;
     int32_t _minDelay { };
 };
