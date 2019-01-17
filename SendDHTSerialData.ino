@@ -1,10 +1,11 @@
 #include <ArduinoJson.h>
-#include "DHTSensor.h"
+#include <DHT.h>
 
 constexpr uint8_t dhtPin = 2;
 constexpr uint8_t dhtType = DHT22;
-DHTSensor dht{dhtPin, dhtType};
+DHT dht{dhtPin, dhtType};
 
+// Sets the error value at errors key.
 void setError(JsonObject& obj, const String& message) {
     auto& errors = obj.containsKey("errors")
       ? obj["errors"]
@@ -14,17 +15,16 @@ void setError(JsonObject& obj, const String& message) {
 }
 
 void setup() {
-  // Initilialize Serial port.
   Serial.begin(9600);
 
-  // Initialize DHT.
   dht.begin();
 }
 
 void loop() {
-  // Delay between measurements.
-  constexpr int32_t expectDelay = 10000; // 10seconds
-  delay(static_cast<unsigned long>(max(expectDelay, dht.getMinDelay())));
+  // Wait 10 seconds between measurements.
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  delay(10000);
 
   // Memory pool for JSON object tree.
   // Inside the brackets, 200 is the size of the pool in bytes.
@@ -35,24 +35,24 @@ void loop() {
   // Memory is freed when jsonBuffer goes out of scope.
   auto& root = jsonBuffer.createObject();
 
-  // Get temperature event and set its value.
-  const auto temperatureEvent = dht.getTemperatureEvent();
-  if (isnan(temperatureEvent.temperature)) {
+  // Read temperature and set its value.
+  const auto temperature = dht.readTemperature();
+  if (isnan(temperature)) {
     setError(root, "Error reading temperature!");
   }
   else {
-    root["temperature"] = temperatureEvent.temperature;
+    root["temperature"] = temperature;
   }
   
-  // Get humidity event and set its value.
-  const auto humidityEvent = dht.getHumidityEvent();
-  if (isnan(humidityEvent.relative_humidity)) {
+  // Read humidity and set its value.
+  const auto humidity = dht.readHumidity();
+  if (isnan(humidity)) {
     setError(root, "Error reading humidity!");
   }
   else {
-    root["humidity"] = humidityEvent.relative_humidity;
+    root["humidity"] = humidity;
   }
 
-  // Send Json data.
+  // Serialize Json.
   root.prettyPrintTo(Serial);
 }
