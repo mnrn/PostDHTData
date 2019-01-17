@@ -54,5 +54,6 @@ void loop() {
   }
 
   // Serialize Json.
-  root.prettyPrintTo(Serial);
+  root.printTo(Serial);
+  Serial.print("\n");  // Delimiter to use.
 }
