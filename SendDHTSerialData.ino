@@ -1,13 +1,12 @@
 #include <ArduinoJson.h>
 #include <DHT.h>
 
-constexpr uint8_t dhtPin = 2;
-constexpr uint8_t dhtType = DHT22;
+constexpr uint8_t dhtPin = 2;       // Pin connected to the DHT sensor.
+constexpr uint8_t dhtType = DHT22;  // Use DHT 22 (AM2302)
 DHT dht{dhtPin, dhtType};
 
 void setup() {
   Serial.begin(9600);
-
   dht.begin();
 }
 
