@@ -5,15 +5,6 @@ constexpr uint8_t dhtPin = 2;
 constexpr uint8_t dhtType = DHT22;
 DHT dht{dhtPin, dhtType};
 
-// Sets the error value at errors key.
-void setError(JsonObject& obj, const String& message) {
-    auto& errors = obj.containsKey("errors")
-      ? obj["errors"]
-      : obj.createNestedArray("errors");
-    auto& error = errors.createNestedObject();
-    error["message"] = message;
-}
-
 void setup() {
   Serial.begin(9600);
 
@@ -56,4 +47,13 @@ void loop() {
   // Serialize Json.
   root.printTo(Serial);
   Serial.print("\n");  // Delimiter to use.
+}
+
+// Sets the error value at errors key.
+void setError(JsonObject& obj, const String& message) {
+    auto& errors = obj.containsKey("errors")
+      ? obj["errors"]
+      : obj.createNestedArray("errors");
+    auto& error = errors.createNestedObject();
+    error["message"] = message;
 }
