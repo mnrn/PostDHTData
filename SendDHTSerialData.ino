@@ -11,10 +11,10 @@ void setup() {
 }
 
 void loop() {
-  // Wait 10 seconds between measurements.
+  // Wait 5 seconds between measurements.
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  delay(10000);
+  delay(5000);
 
   // Memory pool for JSON object tree.
   // Inside the brackets, 200 is the size of the pool in bytes.
