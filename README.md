@@ -1,6 +1,6 @@
-# Send DHT Serial Data
+# Post DHT Data
 
-Send My Home's DHT Serial Data From Arduino.
+Posts My Home's DHT Data using rest api.
 
 ## What is DHT?
 
